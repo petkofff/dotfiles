@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function lmo () {
 	l=$(ls -t | head -1)
 	echo "$l"
@@ -23,7 +25,7 @@ function lm () {
 }
 
 function ranger-cd {
-    tempfile='/tmp/chosendir'
+    tempfile='/tmp/ranger-cd-folder'
     /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     test -f "$tempfile" &&
     if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
@@ -65,8 +67,6 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
-
-bind '"\C-a":"ranger-cd\C-m"'
 
 alias p="cd ~/Documents/projects"
 alias la="ls --all"
