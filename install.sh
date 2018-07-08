@@ -1,6 +1,12 @@
 #!/bin/bash
 
-cp ./bash/.aliases-and-functions ./~
-echo "\nsource ~/.aliases-and-functions" >> ~/.bashrc
+pathToAliasesAndFunctions="~/.aliases-and-functions"
 
-cp ./tmux/.tmux.conf ~
+cp ./bash/.aliases-and-functions ~
+if grep -q "source $pathToAliasesAndFunctions" ~/.bashrc; then
+    echo "$pathToAliasesAndFunctions already sourced"
+    else
+        printf "\nsource $pathToAliasesAndFunctions\n" >> ~/.bashrc
+fi
+
+cp .tmux.conf ~
