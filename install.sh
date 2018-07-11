@@ -10,3 +10,4 @@ if grep -q "source $pathToAliasesAndFunctions" ~/.bashrc; then
 fi
 
 cp .tmux.conf ~
+cp .gitconfig ~
