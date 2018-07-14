@@ -1,10 +1,10 @@
 [include]
-	path = ~/.gitcreds
+    path = ~/.gitcreds
 [alias]
-	st = status
-	cm = commit -m
-	aa = add --all
-	l = log --graph
-	ll = log --graph --abbrev-commit --pretty=oneline  --all
-	ls = log --graph --abbrev-commit --pretty=oneline --stat --all
-	lp = log -p
+    st = status
+    cm = commit -m
+    aa = add --all
+    l = log --graph
+    ll = log --graph --abbrev-commit --pretty=oneline  --all
+    ls = log --graph --abbrev-commit --pretty=oneline --stat --all
+    lp = log -p
