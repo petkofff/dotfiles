@@ -71,6 +71,7 @@ function ex ()
 alias p="cd ~/Documents/projects"
 alias l="ls"
 alias la="ls --all"
+alias ll="ls -alih"
 alias go="xdg-open"
 alias py="python3"
 alias py2="python2"
