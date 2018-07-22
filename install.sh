@@ -7,7 +7,7 @@
 # ```
 
 aliasesAndFunctions=".aliases-and-functions"
-files="$aliasesAndFunctions .tmux.conf .gitconfig .config/Code/User/settings.json"
+files="$aliasesAndFunctions .tmux.conf .gitconfig .vimrc .config/Code/User/settings.json"
 backupDir=~/.dotfilesbackup
 currentDir=`pwd`
 
