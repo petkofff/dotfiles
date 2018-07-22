@@ -7,15 +7,15 @@
 # ```
 
 aliasesAndFunctions=".aliases-and-functions"
-files="$aliasesAndFunctions .tmux.conf .gitconfig"
+files="$aliasesAndFunctions .tmux.conf .gitconfig .config/Code/User/settings.json"
 backupDir=~/.dotfilesbackup
 currentDir=`pwd`
 
-mkdir -p $backupDir
-
 for file in $files; do
-    mv ~/$file $backupDir               # backup old config files
-    ln -fs $currentDir/$file ~/$file    # create symlinks to the files from the repo
+    parentDir=`dirname $file`
+    mkdir -p $backupDir/$parentDir ~/$parentDir     # ensure that parent directories exist
+    mv ~/$file $backupDir/$parentDir                # backup old config files
+    ln -fs $currentDir/$file ~/$file                # create symlinks to the files from the repo
 done
 
 pathToAliasesAndFunctions="~/$aliasesAndFunctions"
