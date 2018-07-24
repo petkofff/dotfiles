@@ -6,6 +6,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+set ruler
+
 set listchars=eol:\ ,tab:\|-,trail:·,extends:>,precedes:<
 set list
 
@@ -18,4 +20,9 @@ augroup numbertoggle
     autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
+
+set path=$PWD/**
+set wildmenu
+
+inoremap <Nul> <C-n>
 
