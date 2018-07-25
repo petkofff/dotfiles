@@ -1,6 +1,6 @@
-syntax on
+" syntax enable                 " enabled by default
+" filetype plugin indent on     " by vim-plug
 
-filetype plugin indent on
 autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
 set tabstop=4
 set shiftwidth=4
@@ -25,4 +25,19 @@ set path=$PWD/**
 set wildmenu
 
 inoremap <Nul> <C-n>
+
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {{     {
+inoremap {}     {}
+
+inoremap        (  ()<Left>
+inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+
+" plugins
+call plug#begin('~/.vim/plugged')
+
+Plug 'airblade/vim-gitgutter'
+
+call plug#end()
 

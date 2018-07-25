@@ -27,3 +27,12 @@ if grep -q "source $pathToAliasesAndFunctions" ~/.bashrc; then
         printf "\nsource $pathToAliasesAndFunctions\n" >> ~/.bashrc
 fi
 
+pathToPlug=~/.vim/autoload/plug.vim
+
+# install vim-plug if it hasn't been done
+if [ ! -f $pathToPlug ]; then
+    curl -fLo $pathToPlug --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim +PlugInstall +qall
+fi
+
