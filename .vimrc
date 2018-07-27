@@ -34,6 +34,8 @@ inoremap {}     {}
 inoremap        (  ()<Left>
 inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 
+set timeoutlen=1000 ttimeoutlen=0
+
 " plugins
 call plug#begin('~/.vim/plugged')
 
