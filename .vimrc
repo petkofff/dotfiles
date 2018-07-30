@@ -27,6 +27,7 @@ augroup END
 
 set path=$PWD/**
 set wildmenu
+set wildignorecase
 
 " <C-Space> for autocomplete
 inoremap <Nul> <C-n>
@@ -47,11 +48,25 @@ set t_Co=16
 highlight ColorColumn ctermbg=4
 call matchadd('ColorColumn', '\%81v', 100)
 
+highlight VertSplit cterm=NONE
+set fillchars=vert:│
+
+" open split panes to right and bottom
+set splitbelow
+set splitright
+
+nnoremap + :vertical resize +10<CR>:resize +5<CR>
+nnoremap - :vertical resize -10<CR>:resize -5<CR>
+
 nnoremap <SPACE> <Nop>
 
 " leader bindings
 let mapleader = " "
-nnoremap <leader>p :up<CR>:tabfind 
+nnoremap <leader>s :up<CR>
+nnoremap <leader>p :up<CR>:find *
+nnoremap <leader>P :up<CR>:tabfind *
+nnoremap <leader>H :up<CR>:split *
+nnoremap <leader>V :up<CR>:vsplit *
 nnoremap <leader>, :up<CR>:tabprevious<CR>
 nnoremap <leader>. :up<CR>:tabnext<CR>
 nnoremap <leader>1 :up<CR>1gt
@@ -64,8 +79,10 @@ nnoremap <leader>7 :up<CR>7gt
 nnoremap <leader>8 :up<CR>8gt
 nnoremap <leader>9 :up<CR>9gt
 nnoremap <leader><F4> :wa<CR>:qall<CR>
-nnoremap <leader>w :up<CR>:tabclose<CR>
+nnoremap <leader>W :up<CR>:hide<CR>
+nnoremap <leader>w <C-w>
 nnoremap <silent><Leader>] <C-w><C-]><C-w>T
+nnoremap <leader>r :so ~/.vimrc<CR>
 
 " plugins
 call plug#begin('~/.vim/plugged')
