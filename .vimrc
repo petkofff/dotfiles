@@ -89,5 +89,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
 
+Plug 'bling/vim-bufferline'
+
 call plug#end()
 

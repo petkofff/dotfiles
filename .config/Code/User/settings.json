@@ -4,5 +4,7 @@
     "editor.renderWhitespace": "all",
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 50,
-    "window.zoomLevel": 0
+    "window.zoomLevel": 0,
+    "keyboard.dispatch": "keyCode",
+    "editor.lineNumbers": "relative"
 }
