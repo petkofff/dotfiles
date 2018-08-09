@@ -63,10 +63,10 @@ nnoremap <SPACE> <Nop>
 " leader bindings
 let mapleader = " "
 nnoremap <leader>s :up<CR>
-nnoremap <leader>p :up<CR>:find *
-nnoremap <leader>P :up<CR>:tabfind *
-nnoremap <leader>H :up<CR>:split *
-nnoremap <leader>V :up<CR>:vsplit *
+nnoremap <leader>pp :up<CR>:find *
+nnoremap <leader>pt :up<CR>:tabfind *
+nnoremap <leader>ph :up<CR>:split *
+nnoremap <leader>pv :up<CR>:vsplit *
 nnoremap <leader>, :up<CR>:tabprevious<CR>
 nnoremap <leader>. :up<CR>:tabnext<CR>
 nnoremap <leader>1 :up<CR>1gt
@@ -80,7 +80,7 @@ nnoremap <leader>8 :up<CR>8gt
 nnoremap <leader>9 :up<CR>9gt
 nnoremap <leader><F4> :wa<CR>:qall<CR>
 nnoremap <leader>W :up<CR>:hide<CR>
-nnoremap <leader>w <C-w>
+nnoremap <leader>w :up<CR><C-w>
 nnoremap <silent><Leader>] <C-w><C-]><C-w>T
 nnoremap <leader>r :so ~/.vimrc<CR>
 
