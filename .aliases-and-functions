@@ -1,11 +1,11 @@
 #!/bin/bash
 
-function lmo () {
+function lmo() {
     local l=$(ls -t | head -1)
     echo "$l"
 }
 
-function lm () {
+function lm() {
     local toOpen=$(ls -t | head -1)
 
     if [ -d "$toOpen" ]; then
@@ -15,53 +15,52 @@ function lm () {
         if [ -e "$toOpen" ]; then
             echo "file: $toOpen"
             echo "Open? [y/n] "
-            read -rsn1 s
-            local y="y"
-            if [ "$s" == "$y" ]; then
+            local s=$(bash -c 'read -rsn1 s; echo $s')
+            if [[ $s == "y" ]]; then
                 xdg-open "$toOpen"
             fi
         fi
     fi
 }
 
-function ranger-cd {
+function ranger-cd() {
     local tempfile='/tmp/ranger-cd-folder'
-    /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     test -f "$tempfile" &&
-    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
-        cd -- "$(cat "$tempfile")"
-    fi
+        if [ "$(cat -- "$tempfile")" != "$(echo -n $(pwd))" ]; then
+            cd -- "$(cat "$tempfile")"
+        fi
     rm -f -- "$tempfile"
 }
 
-function temps {
-    while true; do 
-        clear; sensors; 
-        sleep 1; 
+function temps() {
+    while true; do
+        clear
+        sensors
+        sleep 1
     done
 }
 
-function ig {
+function ig() {
     local q="${*/ /%20}"
     chromium --new-tab "https://www.google.bg/search?q=$q"
 }
 
-function ex ()
-{
-    if [ -f $1 ] ; then
+function ex() {
+    if [ -f $1 ]; then
         case $1 in
-            *.tar.bz2)   tar xjf $1   ;;
-            *.tar.gz)    tar xzf $1   ;;
-            *.bz2)       bunzip2 $1   ;;
-            *.rar)       unrar x $1   ;;
-            *.gz)        gunzip $1    ;;
-            *.tar)       tar xf $1    ;;
-            *.tbz2)      tar xjf $1   ;;
-            *.tgz)       tar xzf $1   ;;
-            *.zip)       unzip $1     ;;
-            *.Z)         uncompress $1;;
-            *.7z)        7z x $1      ;;
-            *)           echo "'$1' cannot be extracted via ex()" ;;
+            *.tar.bz2) tar xjf $1 ;;
+            *.tar.gz) tar xzf $1 ;;
+            *.bz2) bunzip2 $1 ;;
+            *.rar) unrar x $1 ;;
+            *.gz) gunzip $1 ;;
+            *.tar) tar xf $1 ;;
+            *.tbz2) tar xjf $1 ;;
+            *.tgz) tar xzf $1 ;;
+            *.zip) unzip $1 ;;
+            *.Z) uncompress $1 ;;
+            *.7z) 7z x $1 ;;
+            *) echo "'$1' cannot be extracted via ex()" ;;
         esac
     else
         echo "'$1' is not a valid file"
@@ -72,7 +71,7 @@ alias p="cd ~/Documents/projects"
 alias l="ls"
 alias la="ls --all"
 alias ll="ls -alih"
-alias go="xdg-open"
+alias xo="xdg-open"
 alias py="python3"
 alias py2="python2"
 alias act="source activate"
