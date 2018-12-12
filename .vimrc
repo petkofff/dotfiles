@@ -67,8 +67,8 @@ nnoremap <leader>pp :up<CR>:find *
 nnoremap <leader>pt :up<CR>:tabfind *
 nnoremap <leader>ph :up<CR>:split *
 nnoremap <leader>pv :up<CR>:vsplit *
-nnoremap <leader>, :up<CR>:tabprevious<CR>
-nnoremap <leader>. :up<CR>:tabnext<CR>
+nnoremap <leader>, :up<CR>:bp<CR>
+nnoremap <leader>. :up<CR>:bn<CR>
 nnoremap <leader>1 :up<CR>1gt
 nnoremap <leader>2 :up<CR>2gt
 nnoremap <leader>3 :up<CR>3gt
