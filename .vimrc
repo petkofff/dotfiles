@@ -58,11 +58,16 @@ set splitright
 nnoremap + :vertical resize +10<CR>:resize +5<CR>
 nnoremap - :vertical resize -10<CR>:resize -5<CR>
 
+" autoremove all trailing whitespace when saving
+autocmd BufWritePre * %s/\s\+$//e
+
 nnoremap <SPACE> <Nop>
 
 " leader bindings
 let mapleader = " "
-nnoremap <leader>s :up<CR>
+nnoremap <leader>fs :up<CR>
+nnoremap <leader>ff :up<CR>:find *
+nnoremap <leader>bb :up<CR>:find *
 nnoremap <leader>pp :up<CR>:find *
 nnoremap <leader>pt :up<CR>:tabfind *
 nnoremap <leader>ph :up<CR>:split *

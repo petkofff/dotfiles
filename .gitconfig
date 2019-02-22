@@ -1,5 +1,10 @@
 [include]
     path = ~/.gitcreds
+#   $ cat ~/.gitcreds
+#   [user]
+#       name = <name>
+#       email = <email>
+
 [alias]
     st = status
     cm = commit -m
