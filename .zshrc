@@ -53,11 +53,13 @@ alias mntwin="sudo mount -o ro /dev/sda4 /media/win"
 
 # Exports
 export PATH="${PATH}:${HOME}/.local/bin/"
+export VISUAL=vim
+export EDITOR="$VISUAL"
 
 # <C-BACKSPACE> to delete a word
 bindkey '^H' backward-kill-word
 
-# <C-r> 
+# <C-r>
 bindkey "^R" history-incremental-pattern-search-backward
 
 source ~/.aliases-and-functions
