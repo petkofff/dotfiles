@@ -63,6 +63,20 @@ autocmd BufWritePre * %s/\s\+$//e
 
 nnoremap <SPACE> <Nop>
 
+" commenting blocks of code
+autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+autocmd FileType conf,fstab       let b:comment_leader = '# '
+autocmd FileType tex              let b:comment_leader = '% '
+autocmd FileType mail             let b:comment_leader = '> '
+autocmd FileType vim              let b:comment_leader = '" '
+nnoremap <silent> gcc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+nnoremap <silent> guu :<c-b>silent <c-e>s/^\v<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
+vnoremap <silent> gc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+vnoremap <silent> gu :<c-b>silent <c-e>s/^\v<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
+" TODO: 1) take care of code repetition
+"       2) gc and gcc should handle both comment and uncomment
+
 " leader bindings
 let mapleader = " "
 nnoremap <leader>fs :up<CR>
