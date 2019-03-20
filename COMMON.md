@@ -2,7 +2,8 @@
 
 ## Swap <kbd>Esc</kbd> and <kbd>CapsLock</kbd>
 
-dconf-editor > org.gnome.desktop.input-sources.xkb-options > added caps:swapescape
+GNOME: dconf-editor > org.gnome.desktop.input-sources.xkb-options > add caps:swapescape
+Plasma: System Settings > Input Devices > Advanced > Caps Lock behavior > Swap
 
 ## Store docker containers on ~
 

@@ -73,16 +73,7 @@ let s:comment_map = {
     \   "lua": '--',
     \   "scala": '\/\/',
     \   "php": '\/\/',
-    \   "python": '#',
-    \   "ruby": '#',
     \   "rust": '\/\/',
-    \   "sh": '#',
-    \   "desktop": '#',
-    \   "fstab": '#',
-    \   "conf": '#',
-    \   "profile": '#',
-    \   "bashrc": '#',
-    \   "bash_profile": '#',
     \   "mail": '>',
     \   "eml": '>',
     \   "bat": 'REM',
@@ -92,22 +83,21 @@ let s:comment_map = {
     \ }
 
 function! ToggleComment()
+    let comment_leader = '#' " defualt leader
     if has_key(s:comment_map, &filetype)
-        let comment_leader = s:comment_map[&filetype]
-        if getline('.') =~ "^\\s*" . comment_leader . " "
-            " Uncomment the line
-            execute "silent s/^\\(\\s*\\)" . comment_leader . " /\\1/"
-        else
-            if getline('.') =~ "^\\s*" . comment_leader
-                " Uncomment the line
-                execute "silent s/^\\(\\s*\\)" . comment_leader . "/\\1/"
-            else
-                " Comment the line
-                execute "silent s/^\\(\\s*\\)/\\1" . comment_leader . " /"
-            end
-        end
+        comment_leader = s:comment_map[&filetype]
+    end
+    if getline('.') =~ "^\\s*" . comment_leader . " "
+        " Uncomment the line
+        execute "silent s/^\\(\\s*\\)" . comment_leader . " /\\1/"
     else
-        echo "No comment leader found for filetype"
+        if getline('.') =~ "^\\s*" . comment_leader
+            " Uncomment the line
+            execute "silent s/^\\(\\s*\\)" . comment_leader . "/\\1/"
+        else
+            " Comment the line
+            execute "silent s/^\\(\\s*\\)/\\1" . comment_leader . " /"
+        end
     end
 endfunction
 
