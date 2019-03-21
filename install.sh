@@ -6,16 +6,26 @@
 # bash install.sh
 # ```
 
-aliasesAndFunctions=".aliases-and-functions"
-files="$aliasesAndFunctions .tmux.conf .gitconfig .vimrc .zshrc .spacemacs .config/Code/User/settings.json"
+# read install files locations
+files="$(cat files | sed -e 's/#.*$//' -e '/^$/d' files)"
+
+# first entry should be .aliases-and-functions
+aliasesAndFunctions="$(echo $files | awk '{print $1}')"
+
 backupDir=~/.dotfilesbackup
 currentDir=$(pwd)
 
 for file in $files; do
     parentDir=$(dirname $file)
-    mkdir -p $backupDir/$parentDir ~/$parentDir # ensure that parent directories exist
-    mv ~/$file $backupDir/$parentDir            # backup old config files
-    ln -fs $currentDir/$file ~/$file            # create symlinks to the files from the repo
+
+    # ensure that parent directories exist
+    mkdir -p $backupDir/$parentDir ~/$parentDir
+
+    # backup old config files
+    mv ~/$file $backupDir/$parentDir
+
+    # create symlinks to the files from the repo
+    ln -fs $currentDir/$file ~/$file
 done
 
 pathToAliasesAndFunctions="~/$aliasesAndFunctions"
