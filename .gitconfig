@@ -13,3 +13,4 @@
     ll = log --graph --abbrev-commit --pretty=oneline  --all
     ls = log --graph --abbrev-commit --pretty=oneline --stat --all
     lp = log -p
+    fshow = !bash -i -c 'git-fshow'
