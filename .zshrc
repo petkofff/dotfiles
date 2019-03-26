@@ -5,6 +5,7 @@ setopt appendhistory autocd extendedglob nomatch
 unsetopt beep notify
 bindkey -v
 
+# case-insensitive file completion
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle :compinstall filename ~/.zshrc
@@ -49,9 +50,7 @@ alias free='free -h'
 alias vp='vim PKGBUILD'
 alias more=less
 
-alias mntwin="sudo mount -o ro /dev/sda4 /media/win"
-
-# Exports
+# exports
 export PATH="${PATH}:${HOME}/.local/bin/"
 export VISUAL=vim
 export EDITOR="$VISUAL"
@@ -61,5 +60,47 @@ bindkey '^H' backward-kill-word
 
 # <C-r>
 bindkey "^R" history-incremental-pattern-search-backward
+
+setopt noflowcontrol
+
+# full path of the selected file or folder appears after
+# the cursor and gets copied to the clipboard
+function fzf-select() {
+    local selected
+    local curr_path="$(pwd)"
+    local selected_is_a_folder=true
+
+    while [ "$selected_is_a_folder" = true ]; do
+        local lsd=$(echo ".." && ls -A --color=always)
+        selected="$(printf '%s\n' "${lsd[@]}" |
+            fzf --reverse --ansi --preview '
+                __cd_nxt="$(echo {})";
+                __cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
+                echo $__cd_path;
+                echo;
+                ls -A --color=always "${__cd_path}";
+        ')"
+
+        if [[ ${#selected} = 0 ]] || [[ ! -d "$selected" ]]; then
+            selected_is_a_folder=false
+        else
+            builtin cd "$selected" &> /dev/null
+        fi
+    done
+
+    local full_path="$(cd "$(dirname "$selected")"; pwd)/$(basename "$selected")"
+
+    LBUFFER="${LBUFFER}${full_path} "
+
+    builtin cd "$curr_path" &> /dev/null
+
+    if hash xclip 2>/dev/null; then
+        echo "$full_path" | xclip -sel clip
+    fi
+
+    zle redisplay
+}
+zle -N fzf-select
+bindkey '^s' fzf-select
 
 source ~/.aliases-and-functions
