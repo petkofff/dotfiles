@@ -6,16 +6,30 @@
 # bash install.sh
 # ```
 
-# read install files locations
-files="$(cat files | sed -e 's/#.*$//' -e '/^$/d' files)"
-
-# first entry should be .aliases-and-functions
-aliasesAndFunctions="$(echo $files | awk '{print $1}')"
-
+aliasesAndFunctions=".aliases-and-functions"
 backupDir=~/.dotfilesbackup
 currentDir=$(pwd)
 
+
+function unignored-files {
+    set -f
+
+    find . -type f  $(printf "! -wholename ./%s " \
+        $(cat ignorefiles | sed -e 's/#.*$//' -e '/^$/d')) \
+        -printf '%P\n'
+
+    set +f
+
+    # TODO: implement without turning off expansion
+}
+
+# files to install
+files="$(unignored-files)"
+
+echo "Processing:"
 for file in $files; do
+    echo "$file"
+
     parentDir=$(dirname $file)
 
     # ensure that parent directories exist
@@ -27,6 +41,10 @@ for file in $files; do
     # create symlinks to the files from the repo
     ln -fs $currentDir/$file ~/$file
 done
+
+echo
+
+find .scripts -type f -exec chmod +x {} \;
 
 pathToAliasesAndFunctions="~/$aliasesAndFunctions"
 

@@ -1,0 +1,8 @@
+# install.sh ignores all files listed here
+
+.git/*
+README.md
+COMMON.md
+install.sh
+preinstall.sh
+ignorefiles
