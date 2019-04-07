@@ -1,6 +1,7 @@
 # install.sh ignores all files listed here
 
 .git/*
+packages/*
 README.md
 COMMON.md
 install.sh

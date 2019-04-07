@@ -103,4 +103,19 @@ function fzf-select() {
 zle -N fzf-select
 bindkey '^s' fzf-select
 
+function useconda {
+    local __setup_str="'${HOME}/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null"
+    local __conda_setup=$(eval "$__setup_str")
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "${HOME}/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "${HOME}/anaconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="${HOME}/anaconda3/bin:$PATH"
+        fi
+    fi
+}
+
 source ~/.aliases-and-functions
+
