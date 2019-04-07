@@ -4,6 +4,6 @@
 packages/*
 README.md
 COMMON.md
-install.sh
+manage.sh
 preinstall.sh
 ignorefiles
