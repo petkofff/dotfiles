@@ -31,6 +31,5 @@ vifm
 vim
 vlc
 wget
-yaourt
 zip
 zsh
