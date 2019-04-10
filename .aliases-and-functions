@@ -102,6 +102,36 @@ function fn() {
     done
 }
 
+if test -n "$ZSH_VERSION"; then
+    PROFILE_SHELL=zsh
+elif test -n "$BASH_VERSION"; then
+    PROFILE_SHELL=bash
+else
+    echo "Warning: Unknown Shell"
+fi
+
+function useconda {
+    local __setup_str="'${HOME}/anaconda3/bin/conda' 'shell.$PROFILE_SHELL' 'hook' 2> /dev/null"
+    local __conda_setup=$(eval "$__setup_str")
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "${HOME}/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "${HOME}/anaconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="${HOME}/anaconda3/bin:$PATH"
+        fi
+    fi
+}
+
+function act {
+    if hash conda 2>/dev/null; then
+        conda activate $@
+    else
+        useconda
+    fi
+}
+
 alias p="cd ~/Documents/projects"
 alias l="ls"
 alias la="ls --all"
@@ -109,7 +139,6 @@ alias ll="ls -alih"
 alias xo="xdg-open"
 alias py="python3"
 alias py2="python2"
-alias act="conda activate"
 alias dact="conda deactivate"
 alias r="ranger-cd"
 alias t="tmux"
