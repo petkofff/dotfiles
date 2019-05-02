@@ -14,10 +14,12 @@ currentDir=$(pwd)
 
 function help_message {
     # TODO
+    :
 }
 
 function restore_backup {
     # TODO
+    :
 }
 
 function passed {

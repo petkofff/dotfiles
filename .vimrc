@@ -1,3 +1,44 @@
+" plugins
+call plug#begin('~/.vim/plugged')
+
+Plug 'airblade/vim-gitgutter'
+
+Plug '/usr/bin/fzf'
+
+call plug#end()
+
+function! Edit(filepath)
+    execute "e ".fnameescape(a:filepath)
+endfunction
+
+function! CD(path)
+    execute 'cd' fnameescape(a:path)
+endfunction
+
+function! OpenFile()
+    let selected = ""
+    let isDir = 1
+
+    while isDir
+        let selected = fzf#run({'source': 'echo ".." && ls -A --color=always', 'options': '--reverse --ansi'})
+
+        if len(selected) == 0
+            return
+        end
+
+        let selected = selected[0]
+
+        let isDir = isdirectory(selected)
+
+        if !isDir
+            call Edit(selected)
+        else
+            call CD(selected)
+        end
+    endwhile
+
+endfunction
+
 " syntax enable                 " enabled by default
 " filetype plugin indent on     " by vim-plug
 
@@ -85,7 +126,7 @@ let s:comment_map = {
 function! ToggleComment()
     let comment_leader = '#' " defualt leader
     if has_key(s:comment_map, &filetype)
-        comment_leader = s:comment_map[&filetype]
+        let comment_leader = s:comment_map[&filetype]
     end
     if getline('.') =~ "^\\s*" . comment_leader . " "
         " Uncomment the line
@@ -107,7 +148,7 @@ vnoremap gc :call ToggleComment()<cr>
 " leader bindings
 let mapleader = " "
 nnoremap <leader>fs :up<CR>
-nnoremap <leader>ff :up<CR>:find *
+nnoremap <leader>ff :up<CR>:call OpenFile()<CR>
 nnoremap <leader>bb :up<CR>:find *
 nnoremap <leader>pp :up<CR>:find *
 nnoremap <leader>pt :up<CR>:tabfind *
@@ -130,10 +171,4 @@ nnoremap <leader>w :up<CR><C-w>
 nnoremap <silent><Leader>] <C-w><C-]><C-w>T
 nnoremap <leader>r :so ~/.vimrc<CR>
 
-" plugins
-call plug#begin('~/.vim/plugged')
-
-Plug 'airblade/vim-gitgutter'
-
-call plug#end()
 
