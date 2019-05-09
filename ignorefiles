@@ -1,4 +1,4 @@
-# install.sh ignores all files listed here
+# manage.sh ignores all files listed here
 
 .git/*
 packages/*

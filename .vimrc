@@ -15,11 +15,11 @@ function! CD(path)
     execute 'cd' fnameescape(a:path)
 endfunction
 
-function! OpenFile()
+function! FuzzyFind()
     let selected = ""
-    let isDir = 1
+    let is_dir = 1
 
-    while isDir
+    while is_dir
         let selected = fzf#run({'source': 'echo ".." && ls -A --color=always', 'options': '--reverse --ansi'})
 
         if len(selected) == 0
@@ -28,9 +28,9 @@ function! OpenFile()
 
         let selected = selected[0]
 
-        let isDir = isdirectory(selected)
+        let is_dir = isdirectory(selected)
 
-        if !isDir
+        if !is_dir
             call Edit(selected)
         else
             call CD(selected)
@@ -148,7 +148,7 @@ vnoremap gc :call ToggleComment()<cr>
 " leader bindings
 let mapleader = " "
 nnoremap <leader>fs :up<CR>
-nnoremap <leader>ff :up<CR>:call OpenFile()<CR>
+nnoremap <leader>ff :up<CR>:call FuzzyFind()<CR>
 nnoremap <leader>bb :up<CR>:find *
 nnoremap <leader>pp :up<CR>:find *
 nnoremap <leader>pt :up<CR>:tabfind *

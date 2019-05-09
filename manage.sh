@@ -8,9 +8,10 @@
 
 ARGS=$@
 
-aliasesAndFunctions=".aliases-and-functions"
-backupDir=~/.dotfilesbackup
+aliased_and_functions=".aliases-and-functions"
+backup_dir=~/.dotfilesbackup
 currentDir=$(pwd)
+current_dir=$(pwd)
 
 function help_message {
     # TODO
@@ -26,7 +27,7 @@ function passed {
     for arg in $ARGS; do
        if [ "$1" = "$arg" ]; then
             return 0
-        fi
+       fi
     done
 
     return 1
@@ -64,39 +65,39 @@ function unignored_files {
 
 function make_symlinks_and_backup {
     # files to install
-    files="$(unignored_files)"
+    local files="$(unignored_files)"
 
     echo "Processing:"
     for file in $files; do
         echo "$file"
 
-        parentDir=$(dirname $file)
+        local parent_dir=$(dirname $file)
 
         # ensure that parent directories exist
-        mkdir -p $backupDir/$parentDir ~/$parentDir
+        mkdir -p $backup_dir/$parent_dir ~/$parent_dir
 
         # backup old config files
-        mv ~/$file $backupDir/$parentDir
+        mv ~/$file $backup_dir/$parent_dir
         #
         # TODO: don't backup already installed symlinks to the
         #       files from the repo
         #
 
         # create symlinks to the files from the repo
-        ln -fs $currentDir/$file ~/$file
+        ln -fs $current_dir/$file ~/$file
     done
 
     echo
 
     find .scripts -type f -exec chmod +x {} \;
 
-    path_to_aliases_and_functions="~/$aliasesAndFunctions"
+    path_to_aliases_and_functions="~/$aliased_and_functions"
 
     # source .aliases-and-functions in .bashrc if it hasn't been done
     if grep -q "source $path_to_aliases_and_functions" ~/.bashrc; then
         echo "$path_to_aliases_and_functions already sourced"
     else
-        printf "\nsource $path_to_aliases_and_functions\n" >>~/.bashrc
+        printf "\nsource $path_to_aliases_and_functions\n" >> ~/.bashrc
     fi
 }
 
@@ -105,11 +106,35 @@ passed "-symlinks" || passed "-links" || passed "-symlink" || passed "-link" || 
     make_symlinks_and_backup
 }
 
-pathToPlug=~/.vim/autoload/plug.vim
+path_to_plug=~/.vim/autoload/plug.vim
 
 # install vim-plug if it hasn't been done
-if [ ! -f $pathToPlug ]; then
-    curl -fLo $pathToPlug --create-dirs \
+if [ ! -f $path_to_plug ]; then
+    curl -fLo $path_to_plug --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     vim +PlugInstall +qall
 fi
+
+function install_anaconda {
+    local archive="https://repo.anaconda.com/archive/"
+
+    function latest_install_file {
+        curl $archive | grep -o 'Anaconda3[0-9.-]*-Linux-x86_64.sh' | head -1
+    }
+
+    local install_file="$(latest_install_file)"
+    echo
+    echo "Attempt to download: $install_file"
+    curl $archive$install_file -o "$install_file"
+    bash "$install_file"
+    rm "$install_file"
+}
+
+if passed "anaconda" || passed "conda"; then
+    if [ -d ~/anaconda3 ]; then
+        echo "Anaconda already installed"
+    else
+        install_anaconda
+    fi
+fi
+
