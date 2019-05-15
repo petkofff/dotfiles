@@ -9,9 +9,8 @@
 ARGS=$@
 
 aliased_and_functions=".aliases-and-functions"
+current_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 backup_dir=~/.dotfilesbackup
-currentDir=$(pwd)
-current_dir=$(pwd)
 
 function help_message {
     # TODO

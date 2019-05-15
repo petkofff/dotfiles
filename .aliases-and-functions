@@ -102,6 +102,17 @@ function fn() {
     done
 }
 
+function fless {
+    local in="${1:-$(</dev/stdin)}"
+    local pattern="$(echo "$in" | fzf)"
+    echo "$in" | less --pattern "$pattern"
+}
+
+# fuzzy man pages
+function fman {
+    man "$1" | fless
+}
+
 if test -n "$ZSH_VERSION"; then
     PROFILE_SHELL=zsh
 elif test -n "$BASH_VERSION"; then
