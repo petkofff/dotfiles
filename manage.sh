@@ -1,20 +1,37 @@
 #!/bin/bash
 
-# Usage:
-# ```
-# cd <path to the repo>
-# bash manage.sh
-# ```
-
 ARGS=$@
-
 aliased_and_functions=".aliases-and-functions"
 current_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 backup_dir=~/.dotfilesbackup
 
 function help_message {
-    # TODO
-    :
+    local name="$(basename "$0")"
+    local usage="Usage:
+    cd <path to the repo>
+    ./$name [arguments]
+
+Default behaviour:
+    By default $name will try to install vim-plug, spacemacs if this
+    has not been done and create symlinks to all the files from the repo
+    except those listed in ignorefiles.
+
+Accepted arguments:
+    help
+        shows this message
+    base
+        installs the packages listed in packages/arch/base.txt
+    all
+        installs the packages listed in packages/arch/all.txt
+    anaconda, conda
+        installs anaconda
+    -spacemacs, -space
+        will not attempt to install spacemacs
+    -symlinks, -links, -symlink, -link
+        will not attempt to make symlinks to the files from the repo
+    "
+
+    echo "$usage"
 }
 
 function restore_backup {
@@ -31,6 +48,11 @@ function passed {
 
     return 1
 }
+
+if passed "help"; then
+    help_message
+    exit
+fi
 
 packages=""
 
