@@ -30,3 +30,13 @@ pip3 install --user pywal
 # Add local 'pip' to PATH:
 export PATH="${PATH}:${HOME}/.local/bin/"
 ```
+
+## Don't use `sudo` with `npm install -g`
+
+```
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+
+# Add local npm bins to PATH
+export PATH=~/.npm-global/bin:$PATH
+```

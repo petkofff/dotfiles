@@ -54,6 +54,7 @@ alias more=less
 export PATH="${PATH}:${HOME}/.local/bin/"
 export VISUAL=vim
 export EDITOR="$VISUAL"
+export PATH=~/.npm-global/bin:$PATH
 
 # <C-BACKSPACE> to delete a word
 bindkey '^H' backward-kill-word
