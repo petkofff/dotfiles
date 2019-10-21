@@ -65,7 +65,9 @@ if passed "all"; then
 fi
 
 if [ ! "$packages" = "" ]; then
-    sudo pacman -S --noconfirm --needed $packages
+    sudo bash -c "for p in \"$packages\"; do
+                      pacman -S --noconfirm --needed \$p
+                  done"
 fi
 
 passed "-spacemacs" || passed "-space" || {
