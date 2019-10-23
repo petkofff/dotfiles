@@ -170,5 +170,6 @@ nnoremap <leader>W :up<CR>:hide<CR>
 nnoremap <leader>w :up<CR><C-w>
 nnoremap <silent><Leader>] <C-w><C-]><C-w>T
 nnoremap <leader>r :so ~/.vimrc<CR>
+nnoremap <leader><Tab> <C-^>
 
 
