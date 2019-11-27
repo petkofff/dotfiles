@@ -42,6 +42,9 @@ endfunction
 " syntax enable                 " enabled by default
 " filetype plugin indent on     " by vim-plug
 
+" case insensitive search
+set ignorecase
+
 " indentation
 autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
 set tabstop=4
