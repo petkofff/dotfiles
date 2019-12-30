@@ -54,7 +54,7 @@ function info {
 }
 
 function ask {
-    printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+    printf "\r  [ \033[0;33m??\033[0m ] $1"
 }
 
 function ok () {
@@ -70,11 +70,24 @@ function check_availability {
 
     info "availability check..."
 
+    local success=1
+
     for c in $needed; do
         if ! command -v "$c" > /dev/null; then
             fail "could not find \`$c\`"
+            success=0
         fi
     done
+
+    if [ $success = 0 ]; then
+        ask "continue running the script? [Y/n] "
+        local ans="y"
+        read ans
+
+        if [ "$ans" = "n" ]; then
+            exit 1
+        fi
+    fi
 }
 
 check_availability

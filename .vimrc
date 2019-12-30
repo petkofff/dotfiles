@@ -3,7 +3,11 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
 
-Plug '/usr/bin/fzf'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all --clangd-completer --tern-completer' }
+
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
@@ -174,5 +178,4 @@ nnoremap <leader>w :up<CR><C-w>
 nnoremap <silent><Leader>] <C-w><C-]><C-w>T
 nnoremap <leader>r :so ~/.vimrc<CR>
 nnoremap <leader><Tab> <C-^>
-
 

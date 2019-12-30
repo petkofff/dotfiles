@@ -41,9 +41,14 @@ function temps() {
     done
 }
 
-function ig() {
+function ggl() {
     local q="${*/ /%20}"
-    chromium --new-tab "https://www.google.bg/search?q=$q"
+    firefox --new-tab "https://www.google.bg/search?q=$q"
+}
+
+function ddg() {
+    local q="${*/ /%20}"
+    firefox --new-tab "https://www.duckduckgo.com/?q=$q"
 }
 
 function ex() {
@@ -158,3 +163,4 @@ alias n="nnn"
 alias nb="newsboat"
 alias ssp="systemctl suspend"
 alias pff="poweroff"
+alias dcmp="docker-compose"
