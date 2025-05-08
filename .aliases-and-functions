@@ -43,7 +43,7 @@ function temps() {
 
 function ggl() {
     local q="${*/ /%20}"
-    firefox --new-tab "https://www.google.bg/search?q=$q"
+    firefox --new-tab --private-window "https://www.google.bg/search?q=$q"
 }
 
 function ddg() {

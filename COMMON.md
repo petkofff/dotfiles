@@ -40,3 +40,12 @@ npm config set prefix '~/.npm-global'
 # Add local npm bins to PATH
 export PATH=~/.npm-global/bin:$PATH
 ```
+
+## Root cleanup
+
+Remove orphan packages and clear pacman cache, except the last three versions of each package:
+
+```
+sudo pacman -Rsn `pacman -Qqtd` ; sudo paccache -r
+
+```

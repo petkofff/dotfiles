@@ -6,5 +6,5 @@ My dotfiles
 ```
 git clone https://github.com/petkofff/dotfiles.git
 cd dotfiles
-bash manage.sh
+./manage.sh
 ```
